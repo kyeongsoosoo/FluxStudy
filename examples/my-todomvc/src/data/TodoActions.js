@@ -34,6 +34,12 @@ const Actions = {
         TodoDispatcher.dispatch({
             type:TodoActionTypes.CLEAR_COMPLETE,
         })
+    },
+
+    toggleAllTodos() {
+        TodoDispatcher.dispatch({
+            type:TodoActionTypes.TOGGLE_ALL,
+        })
     }
 }
 

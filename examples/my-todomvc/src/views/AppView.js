@@ -21,11 +21,23 @@ function Main(props) {
     if(props.todos.size === 0){
         return null;
     }
+
+    const isAllCompleted = props.todos.every( todo => todo.complete);
+
     return (
         <section id="main">
             <ul id="todo-list">
+                <input
+                    id="toggle-all"
+                    type="checkbox"
+                    checked={isAllCompleted}
+                    onChange={
+                        () => {props.onToggleAll()}
+                    }
+                />
                 {[...props.todos.values()].reverse().map(todo => (
                     <li key={todo.id}>
+                        
                         <div className="view">
                             <input
                                 className="toggle"
@@ -92,6 +104,8 @@ function NewTodo(props) {
     }
 
     return (
+    <div>
+ 
         <input
             autoFocus={true}
             id="new-todo"
@@ -101,6 +115,7 @@ function NewTodo(props) {
             onChange={onChange}
             onKeyDown={onKeyDown}
         />
+    </div>
     )
 }
 

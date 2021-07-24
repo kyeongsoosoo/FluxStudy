@@ -4,6 +4,7 @@ const ActionTypes = {
     TOGGLE_TODO: 'TOGGLE_TODO',
     UPDATE_DRAFT: 'UPDATE_DRAFT',
     CLEAR_COMPLETE: 'CLEAR_COMPLETE',
+    TOGGLE_ALL: 'TOGGLE_ALL',
 };
 
 export default ActionTypes;
