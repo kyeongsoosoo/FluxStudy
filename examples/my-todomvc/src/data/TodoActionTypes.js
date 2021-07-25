@@ -5,6 +5,9 @@ const ActionTypes = {
     UPDATE_DRAFT: 'UPDATE_DRAFT',
     CLEAR_COMPLETE: 'CLEAR_COMPLETE',
     TOGGLE_ALL: 'TOGGLE_ALL',
+    EDIT_START: 'EDIT_START',
+    EDIT_FINISH: 'EDIT_FINISH',
+    EDIT_TODO: 'EDIT_TODO'
 };
 
 export default ActionTypes;
