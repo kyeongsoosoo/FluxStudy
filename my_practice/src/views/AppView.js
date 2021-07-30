@@ -20,6 +20,7 @@ function Header(props){
 }
 
 function Main(props) {
+    console.log(props.todos)
     if(props.todos.size === 0){
         return null;
     }

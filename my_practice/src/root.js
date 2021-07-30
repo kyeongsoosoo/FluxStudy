@@ -10,11 +10,15 @@
  import React from 'react';
  import ReactDOM from 'react-dom';
  import TodoActions from './data/TodoActions';
+import PubSubService from './services/PubSubService';
 
- ReactDOM.render(<AppContainer />, document.getElementById('todoapp'));
+const rendering = () => {
+    ReactDOM.render(<AppContainer />, document.getElementById('todoapp'));
+}
+rendering();
  
  TodoActions.addTodo('My first task');
  TodoActions.addTodo('Another task');
  TodoActions.addTodo('Finish this tutorial');
   
-
+PubSubService.subscribe(rendering)

@@ -1,4 +1,5 @@
-import { Container } from "flux/utils";
+import  {Container}  from "flux/utils";
+import React from 'react';
 import TodoStore from "../data/TodoStore";
 import AppView from "../views/AppView";
 import TodoActions from '../data/TodoActions'
@@ -33,4 +34,4 @@ function getState() {
     
 }
 
-export default Container.createFunctional(AppView, getStores, getState)
+export default () => <AppView {...getState()}/>
