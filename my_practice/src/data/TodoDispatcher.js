@@ -1,3 +1,22 @@
-import {Dispatcher} from 'flux'
+import TodoDraftStore from './TodoDraftStore';
+import TodoEditStore from './TodoEditStore';
+import TodoStore from './TodoStore';
 
-export default new Dispatcher();
+class TodoDispatcher{
+    constructor(){
+        this.stores = [
+            TodoStore,
+            TodoEditStore,
+            TodoDraftStore
+        ]
+    }
+
+    dispatch(action) {
+        this.stores.forEach( store => {
+            store.reduce(action);
+        } )
+    }
+}
+
+export default new TodoDispatcher();
+

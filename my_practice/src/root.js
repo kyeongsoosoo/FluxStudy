@@ -16,9 +16,10 @@ const rendering = () => {
     ReactDOM.render(<AppContainer />, document.getElementById('todoapp'));
 }
 rendering();
+
+PubSubService.subscribe(rendering)
  
  TodoActions.addTodo('My first task');
  TodoActions.addTodo('Another task');
  TodoActions.addTodo('Finish this tutorial');
   
-PubSubService.subscribe(rendering)

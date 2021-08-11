@@ -1,25 +1,29 @@
-import { ReduceStore } from "flux/utils";
-import TodoDispatcher from "./TodoDispatcher";
 import TodoActionTypes from './TodoActionTypes'
+import PubSubService from "../services/PubSubService";
 
-class TodoDraftStore extends ReduceStore {
+class TodoDraftStore {
     constructor() {
-        super(TodoDispatcher);
+        this.state = '';
     }
 
-    getInitialState() {
-        return '';
+    getState() {
+        return this.state
     }
 
-    reduce(state,action){
+    reduce(action){
         switch(action.type){
             case TodoActionTypes.ADD_TODO:
-                return '';
+                this.state = ''
+                PubSubService.publish();
+                break;
             case TodoActionTypes.UPDATE_DRAFT:
-                return action.text;
-
+                PubSubService.publish();
+                this.state = action.text;
+                break;
             default:
-                return state;
+                this.state = this.state
+                break;
+            
         }
     }
 }

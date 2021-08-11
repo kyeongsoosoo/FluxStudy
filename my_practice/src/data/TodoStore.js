@@ -1,51 +1,60 @@
 import Immutable from 'immutable'
-import {ReduceStore} from 'flux/utils'
 import Counter  from './Counter'
 import TodoActionTypes from './TodoActionTypes'
-import TodoDispatcher from './TodoDispatcher'
 import Todo from './Todo'
+import PubSubService from '../services/PubSubService';
 
-class TodoStore extends ReduceStore {
+class TodoStore {
     constructor() {
-        super(TodoDispatcher);
+        this.state = Immutable.OrderedMap();
     }
-
-    getInitialState() {
-        return Immutable.OrderedMap();
+    getState() {
+        return this.state
     }
-
-    reduce(state, action) {
+    reduce(action) {
         switch(action.type){
             case TodoActionTypes.ADD_TODO:
                 if(!action.text)
-                    return state;
+                    this.state = this.state;
                 const id = Counter.increment();
-                return state.set(id, new Todo({
+                this.state = this.state.set(id, new Todo({
                     id,
                     text: action.text,
                     complete: false,
                 }))
+                PubSubService.publish();
+                break;
             case TodoActionTypes.DELETE_TODO:
-                return state.delete(action.id);
+                this.state = this.state.delete(action.id);
+                PubSubService.publish();
+                break;
             case TodoActionTypes.EDIT_TODO:
-                return state.setIn([action.id, 'text'], action.text);
+                this.state = this.state.setIn([action.id, 'text'], action.text);
+                PubSubService.publish();
+                break;
             case TodoActionTypes.TOGGLE_TODO:
-                return state.update(
+                this.state = this.state.update(
                     action.id,
                     todo => todo.set('complete', !todo.complete)
                 )
+                PubSubService.publish();
+                break;
             case TodoActionTypes.CLEAR_COMPLETE:
-                return state.filter( todo => !todo.complete)
-
+                this.state = this.state.filter( todo => !todo.complete)
+                PubSubService.publish();
+                break;
             case TodoActionTypes.TOGGLE_ALL:
-                const isAllCompleted = state.every( todo => todo.complete);
+                const isAllCompleted = this.state.every( todo => todo.complete);
                 if(isAllCompleted)
-                    return state.map(todo => todo.set('complete', false));
+                    this.state = this.state.map(todo => todo.set('complete', false));
                 else
-                    return state.map(todo => todo.set('complete',true));
+                    this.state = this.state.map(todo => todo.set('complete',true));
+                PubSubService.publish();
+                break;
             default:
-                return state;
-        }
+                this.state = this.state;
+                break;
+            }
     }
 }
 
