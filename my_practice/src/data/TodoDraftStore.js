@@ -17,8 +17,8 @@ class TodoDraftStore {
                 PubSubService.publish();
                 break;
             case TodoActionTypes.UPDATE_DRAFT:
-                PubSubService.publish();
                 this.state = action.text;
+                PubSubService.publish();
                 break;
             default:
                 this.state = this.state
